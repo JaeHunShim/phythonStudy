@@ -387,79 +387,89 @@ Python 기본 문법과 사용방법
 
         safe_pop_print([1,2,3,6,8,],5)
 
-      5의 index의 값을 가지고 올수 없습니다. 라는 오류 처리를 하게 했다. pop으로 5번째 인덱스 값을 뽑아올라고 했는데 없어서 오류가 난것이다. 
+      5의 index의 값을 가지고 올수 없습니다. 라는 오류 처리를 하게 했다. pop으로 5번째 인덱스 값을 뽑아올라고 했는데 없어서 오류가 난것이다.
 
-  ## except 에러 연습
+  * **except 에러 연습**
 
-  try:
-      a = 3/0
-  except ZeroDivisionError:
-      print("0으로 나눌 수 없습니다.")
+        try:
+            a = 3/0
+        except ZeroDivisionError:
+            print("0으로 나눌 수 없습니다.")
 
-  # 무슨에러가 날지 모를대 가명으로
-  try:
-      list = []
-      print(list[0])
-  except Exception as e:
-      print(e)
+  * **무슨에러가 날지 모를대 가명으로**
 
-  # 일부러 사용자가 에러를 발생시키는 경우 (raise)
-  print('------------------------------------------')
-  def rsp(mine,yours):
-      allowed =['가위', '바위', '보']
-      if mine not in allowed:
-          raise ValueError
-      if yours not in allowed:
-          raise ValueError
+        try:
+            list = []
+            print(list[0])
+        except Exception as e:
+            print(e)
 
-  try:
-      rsp('바위','주먹')
-  except:
-      print('잘못낸거 같습니다.')
+      이부분이 Java 에서 Exception(e)  println(e.getMessage)에 해당하는 부분
 
-  #raise 연습
-  print('---------------------------------------------')
-  shops = {
-      "송일문방구": {"가위": 500, "크레파스": 3000},
-      "알파문구": {"풀": 800, "도화지": 300, "A4용지": 8000},
-      "다이소": {"풀": 500, "목공본드": 2000, "화분": 3000}
-  }
-  # 한곳만 나오게 해보기 현재는 2군데가 나옴
+  * **일부러 사용자가 에러를 발생시키는 경우 (raise)**
+
+        def rsp(mine,yours):
+            allowed =['가위', '바위', '보']
+            if mine not in allowed:
+                raise ValueError
+            if yours not in allowed:
+                raise ValueError
+      파라미터의 mine의 값이 allowed 리스트 안에  없을때 나오는 함수를 만들어놓고
+
+        try:
+            rsp('바위','주먹')
+        except:
+            print('잘못낸거 같습니다.')
+
+      yours의 파라미터로 주먹을 주었는데  allowed리시트 안에 없는 값이기 때문에 예외 처리를 하게 된다.
+
+  * **raise 연습**
+
+        shops = {
+            "송일문방구": {"가위": 500, "크레파스": 3000},
+            "알파문구": {"풀": 800, "도화지": 300, "A4용지": 8000},
+            "다이소": {"풀": 500, "목공본드": 2000, "화분": 3000}
+        }
+
+
   #(raise StopIteration)써서 강제 스톱 시키기
-  try:
-      for shop, products in shops.items():
-          for product, price in products.items():
-              if product =='풀':
-                  print("{}: {}원".format(shop, price))
-                  raise StopIteration
-  except:
-      print("정상종료 되었습니다.")
 
-  <논리연산>
+        try:
+            for shop, products in shops.items():
+                for product, price in products.items():
+                    if product =='풀':
+                        print("{}: {}원".format(shop, price))
+                        raise StopIteration
+        except:
+            print("정상종료 되었습니다.")
 
-  #논리연산에 대해서 더 알아보기
+   처음 for문은 shops의 해당 키와 value 값을 반복문으로 가지고 오는 부분이고 두번째 반복문은 딕셔너리 안의 키값과 value를 반복해서 가지고 오는 부분이다. if문에서 product(가위, 크레파스, 풀..) 이 나오게되면 강제 종료 시키는 StopIteration을 사용해서 원하는 값이 나오면 빠져 나오게 처리해 보았다.
+  ### 19. 논리연산
+    * 논리연산의 경우 다른 타 프로그래밍과 비슷하기 때문에 예제를 통해서 이해할수 있을 것이다.
 
-  def return_false():
-      print('함수는 항상 False')
-      return False
+          def return_false():
+                print('함수는 항상 False')
+                return False
 
-  def return_true():
-      print('함수는 항상 True')
-      return True
+          def return_true():
+                print('함수는 항상 True')
+                return True
 
-  print('테스트1')
-  a = return_false()
-  b = return_true()
+        항상 true를 반환하는 함수와 false를 반환하는 함수가 있다면
 
-  if a and b:
-      print(True)
-  else:
-      print(False)
 
-  print('테스트2')
-  # 앞에처음부터 False이기때문에 뒤에무엇이 와도 False기 때문에 출력
-  # 결과물이 하나 더 안나오는거징
-  if return_false() and return_true():
-      print(True)
-  else:
-      print(False)
+          a = return_false()
+          b = return_true()
+
+          if a and b:
+              print(True)
+          else:
+              print(False)
+
+        and 연산이기때문에 **무조건 앞에것이 false면 뒤에는 보지 않아도 false값이 반환된다**
+
+          if return_false() or return_true():
+              print(True)
+          else:
+              print(False)
+        or 연산이기때문에 앞에것이 false라도 뒤에것을 검사해서 true라면 ture를 반환한다. **즉 어느것 하나라도 ture라면 반환값은 true가 반환된다.**

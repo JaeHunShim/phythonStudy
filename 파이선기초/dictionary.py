@@ -48,11 +48,14 @@ d=a,b
 print(d)
 
 
-def safe_pop_print(list, index):
-    try:
-        print(list.pop(index))
-    except IndexError:
-        print('{}의 index의 값을 가지고 올수 없습니다.'.format(index))
+def rsp(mine, yours):
+    allowed = ['가위', '바위', '보']
+    if mine not in allowed:
+        raise ValueError
+    if yours not in allowed:
+        raise ValueError
 
-
-safe_pop_print([1, 2, 3, 6, 8], 5)
+try:
+    rsp('바위','주먹')
+except:
+    print('잘못낸거 같습니다.')
