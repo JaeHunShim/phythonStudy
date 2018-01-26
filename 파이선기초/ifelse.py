@@ -36,3 +36,8 @@ else:
 
 print(result)
     
+
+name=['영희','철수','미애','재훈','주한']
+
+for i,names in enumerate(name):
+    print('{}번:{}'.format(i+1,names))

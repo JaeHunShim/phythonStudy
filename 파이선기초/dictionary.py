@@ -19,7 +19,7 @@ def rsp(me,you):
 
       return 'draw'
 
-    elif winTable[my]== you:
+    elif winTable[me]== you:
 
        return 'win'
 
@@ -41,3 +41,18 @@ message = {
     }
 
 print(message[n])
+
+a=(3,4)
+b=(3,4)
+d=a,b
+print(d)
+
+
+def safe_pop_print(list, index):
+    try:
+        print(list.pop(index))
+    except IndexError:
+        print('{}의 index의 값을 가지고 올수 없습니다.'.format(index))
+
+
+safe_pop_print([1, 2, 3, 6, 8], 5)
