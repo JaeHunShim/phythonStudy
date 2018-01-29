@@ -505,10 +505,347 @@ Python 기본 문법과 사용방법
           print(list1)  #[9,8,7,6,5,4,3,2,1]
 
   ### 21. List와 Sting 비교와 서로 바꾸어보기
-    * List와 String은 서로 비슷한 점이 많다
+    * **List와 String은 서로 비슷한 점이 많다**
 
           my_list = [2,3,4,5]
           str = "Hello World"
+
           print(my_list[0])   # 2출력
           print(str[0])   #"H"출력
           print(str[3])   # "l"출력
+
+      문자열도 리스트와 똑같이 해당 위치의 값을 뽑아올수 있다.
+
+          print(3 in my_list) #True
+          print("o" in str)   #True
+
+      해당 charactor가 존재하는지 존재여부를 알때도  비슷하다.
+
+          print(my_list.index(5)) #3출력
+          print(str.index("d"))  # 10 출력
+
+      해당값의 위치도 알수 있는 index 의 기능도 똑같이 쓸수있다.
+
+  * **문자열을 리스트로 바꾸어보기**
+
+        characters = list("abcdef")
+        print(characters) # [a,b,c,d,e,f]
+
+  * **해당  문자열을 .split()으로 사용해서 공백을 기준으로 list를 만들수 잇다. sprit의 파라미터에 값을 주면 그 값을 기준으로 쪼개서 리스트로 만들어줄수 있다. 파라미터를 안주면 공백을 기준으로 리스틀 만들어줌**
+
+        words = "재훈이는 정말 열심히 하고있습니다."
+        words_list = words.split()
+        print(words_list) # ['재훈이는', '정말', '열심히', '하고있습니다.']
+        time = "지금 시각은 10:20:45 초입니다."
+        time_list=time.split(":")
+        print(time_list) # ['지금 시각은 10', '20', '45 초입니다.']
+
+  * 리스트를 다시 문자열로도 바꿀수 가 있다.
+
+        print(" ".join(words_list))  #재훈이는 정말 열심히 하고있습니다.
+
+  ### 22. Slice
+  * 원하는 범위내의 데이터를 잘라서 가지고옴
+  * Slice를 이용해서 리스트를 복사하면 편하게 쓸수 있기때문에 많이 사용함
+  ex)
+
+        list = ['영','일','이','삼','사']
+        print(list[1:3])  #['일', '이']
+        print(list[2:len(list)]) # 끝가지 얻어올수도 있아 len을 이용해서
+        print(list[:2]) #['이', '삼', '사']
+        print(list[:])  #['영', '일', '이', '삼', '사']
+
+        list1= [25,67,89,567,456]
+        list2 = list1[:]  
+        print(list1)  # [25, 67, 89, 567, 456]
+        list1.sort()
+        print(list1)  #[25, 67, 89, 456, 567]
+        print(list2)  #[25, 67, 89, 567, 456]
+
+    예제를 보면 list[1:3] 이부분은 원하는 start 지점부터 end이전까지의 리스트 데이터를 가지고오는 부분이다. 이렇게 직접 잘라서 가지고 올수도 있고, [2:] 이런식으로 2번째 start 지점부터 list의 끝까지 다 가지고 오게 할수도 있으며, 리스트를 통째로 잘라서 가지고올수도 있다([:]) . 슬라이스를 하면 엄현이 다른공간에 slice 가 되는 것이니 헷갈리지 않도록 한다.
+
+  * Sice로 List 수정해보기
+
+        numbers = list(range(10))
+        print(numbers) #[0,1,2,3,4,5,6,7,8,9]
+
+        del(numbers[0])
+        print(numbers)  #[1,2,3,4,5,6,7,8,9]
+
+        del(numbers[:5])
+        print(numbers) #[6,7,8,9]
+
+        numbers[1:3]  = [77,88,99]
+        print(numbers) #[6,77,88,99,9]
+        numbers[1:3] = [4]
+        print(numbers) #[6,4,99,9]
+
+      슬라이스로 해당 인덱스번호에 해당하는 값을 지우거나 수정할수 있다. 기본적인거라 예제만 보고 이해해도 충분 함 . 중요한것은 **[start,end]에서 start부터 end 전까지** 라는 걸 잘 알아두어야 한다.
+
+  ### 23. 자료형 다루기
+    * **isinstance**로 해당 자료의 타입의 True와 False를 알아낼수 있다
+    ex)
+
+          print(isinstance(42,int))  #42는 정수형이기 때문에 True
+          print(isinstance(42.4,int)) #42.2는 실수형(flaot) 이기때문에 False
+
+  ### 24. 클래스와 인스턴스의 개념과 차이
+    *  다른 객체지향 프로그래밍에서의 개념과 똑같다. 딱히 언급은 안하고 간단하게 정의정도만 알고 넘어가자
+        * **Class:** 함수나 변수들을 모아놓은 집합체, 더 쉽게 말하면 instance들을  가지고있는 컨테이너의 역할이 클래스
+        * **Instance:**  클래스에 의해 생성된 객체이다. 인스턴스는 각자 자신의 값을 가지고 있다.
+
+   * **클래스와 인스턴스를 이용한 모델링 이해하기**
+      * Human이라는 클래스를 만들고 인스턴스를 하나씩 생성해서 사용해볼것이다.
+          1. Human이라는 클래스를 생성
+          2. 사람을 생성하는 함수를 하나 생성해놓는다.
+          3. Human클래스의 인스턴스를 생성해준다 .(person)
+          4.매개변수로 받아오는 값들을 해당인스턴스의 값으로 지정한다. (person.name과 person.weight)
+          5. 만든 함수를 Human클래스에 담아주고
+          6. 담은 함수를 person이라는 인스턴스로 생성한다.
+          7. eat함수와 walk 함수도 생성한후에 Human클래스에 넣어준다.
+          8. 정리하자면 만든 함수들을 모두  Human클래스에 담고  인스턴스를 생성한 것이다.
+          9. 매번 이렇게 하면 너무 귀찮다.~ㅠㅠ 그래서 클래스 내부에 함수를 정의하고 외부에서 instance를 통해서 함수를 호출하면 더 쉽게 할수 있다.
+
+                 class Human():
+                     '''인간'''
+                 '''
+                 person = Human()
+                 person.name = '철수'
+                 person.weight = 70
+                 '''
+                 def create_human(name, weight):
+                     person = Human() # person
+                     person.name = name  
+                     person.weight = weight
+                     return person
+                 # 해당함수를 Human클래에 넣어주고
+                 Human.create = create_human
+                 #  그 함수를 하나의 인스턴스로 만들어준다.
+                 person = Human.create('재훈',40)
+
+                 def eat(person):
+                     person.weight +=0.1
+                     print('{}이가  먹어서{}kg 이 되었습니다.'.format(person.name,person.weight))
+
+                 def walk(person):
+                     person.weight -=0.1
+                     print('{}이가 걸어서 {} kg이 되었습니다.'.format(person.name,person.weight))
+                    # eat과 walk 함수도 마찬가지로 Human클래스에 담는다.
+                 Human.eat = eat
+                 Human.walk = walk
+
+                 person.walk()
+                 person.eat()
+                 person.walk()
+
+          결과를 보면
+          ![modeling](./img/modeling.png)  가 나온다.
+
+            class Human():
+            '''인간'''
+              def create_human(name, weight):
+                  person = Human()
+                  person.name = name
+                  person.weight = weight
+                  return person
+
+              def eat(person):
+                  person.weight += 0.1
+                  print('{}이가  먹어서{}kg 이 되었습니다.'.format(person.name, person.weight))
+
+
+              def walk(person):
+                  person.weight -= 0.1
+                  print('{}이가 걸어서 {} kg이 되었습니다.'.format(person.name, person.weight))
+
+
+
+            person = Human.create_human('재훈',40)
+
+            person.walk()
+            person.eat()
+            person.walk()
+
+          이런식으로 클래스 내부에 함수를 넣어놓고 외부에서 인스턴스를 생성해서 불러오면 훨씬 직관적이고 쉽게 할수 있다. 결과는 위에 결과와 동일
+        * **self** : 파이선에서는 보통 첫번재 매개변수를 self로 준다.  즉 쉽게 말하면 **첫번째의 인자는 무조건 인스턴스를 넘겨준다는 의미이다.** 의미는 알겠지만 난 직관적인게 좋아서 이 기능이 좋은지를 잘 모르겠다  이기능을 사용해보면  이전 실습 한것을 토대로 본다면
+
+              def eat(self):
+                  self.weight += 0.1
+                  print('{}이가  먹어서{}kg 이 되었습니다.'.format(self.name, self.weight))
+
+
+              def walk(self):
+                  self.weight -= 0.1
+                  print('{}이가 걸어서 {} kg이 되었습니다.'.format(self.name, self.weight))
+
+                  person.walk()
+                  person.eat()
+
+          인스턴스의 매개변수를 전달 할 때는 self 매개변수는 생략하고 전달하게 된다.
+
+  ### 25. 특수한 메소드 사용해보기(int, str)
+    * ___int ___ :인스튼서를 만들때  실행되는 함수.(초기화 함수)
+    * ___str ___: 인스턴스 자체를 출력 할 때의 형식을 지정해주는 함수
+
+          class Human():
+              '''인간'''
+              def __init__(self,name,weight): # 인스턴스를 만들때 실행되는 함수
+                  '''초기화 함수'''
+                  print("___init___실행")
+                  self.name = name
+                  self.weight = weight
+              def __str__(self): #인스턴스가 문자열로 어떻게 출력될지 정해줌
+                  '''문자열화 함수'''
+                  return '{}몸무게 {}kg'.format(self.name,self.weight)
+
+
+          person = Human('재훈',50)
+          # 객체를 생성하면 int 메소드로 인해서 '___init___실행 '이 출력되는 걸 볼수 있다.
+          print(person.name)  #재훈
+          print(person.weight)  #50
+          print(person) #재훈몸무게 50kg ##str 메소드때문에 이렇게 나올수 있는 것이다. ##
+
+  ### 26. 상속(Inheritence)
+    * 쓰는 이유는 중복된 코드를 줄임으로써  효율성을 높이기 위해서 사용한다.  
+    * 상속의 정의: 자식 클래스가 부모 클래스의  매소드 변수등을 가져와서 쓰는 것을 말한다.
+
+          class Human():
+
+              def walk(self):
+                  print ('걷는다')
+              def eat(self):
+                  print('먹는다')
+              def wave(self):
+                  print('손을 흔든다.')
+
+          class Dog():
+              def walk(self):
+                  print ('걷는다')
+              def eat(self):
+                  print('먹는다')
+              def wag(self):
+                  print('꼬리를 흔든다.')
+
+          person = Human()
+          person.walk()
+          person.eat()
+          person.wave()
+
+          dog = Dog()
+          dog.walk()
+          dog.eat()
+          dog.wag()
+      코드를 보면  사람클래스와 개 클래스두개를 만들었는데 안의 함수들을 보면 **걷는다** 와 **먹는다** 라는 매소드가 그 기능까지 모두 똑같다 . 이러한 코드중복을 막기 위해서  부모클래스를 하나더 만들어서 중복된 코드를 줄일수 있는 것이다.
+
+          class Animal():
+               def walk(self):
+                   print ('걷는다')
+               def eat(self):
+                   print('먹는다')
+
+          class Human(Animal):
+              def wave(self):
+                  print('손을 흔든다.')
+
+          class Dog(Animal):
+              def wag(self):
+                  print('꼬리를 흔든다.')
+        이러한 식으로 걷는다와 먹는다를  별도의 클래스로 만들고 그 클래스를 상속받아 쓰면 코드가훨씬 간단해 지는 것을  볼수 있다 . 자식 클래스가 상속받는 방법은  **파라미터에 상속받을 클래스 명을 넣어주면 간단하게 끝난다.**  
+        그림으로 보면
+        ![Inheritence](./img/Inheritence.png)
+
+        이런식으로 상속관계가 이루어진다.
+  ### 27. 오버라이드(Override)
+  * 정의 :쉽게 말하면 부모 클래스의 이름을 똑같은 이름으로 메소드를 덮어쓴다는 말이다.즉,  **부모클래스의  해당 메소드를 그대로 받아서 메소드의 기능을 바꾸는 것을 override라고 한다**.
+
+        class Animal():
+            def walk(self):
+                 print ('걷는다')
+            def eat(self):
+                 print('먹는다')
+            def great(self):
+                print('인사한다.')
+        class Cow(Animal):
+            '''소'''
+
+        class Human(Animal):
+            def wave(self):
+                print('손을 흔든다.')
+            def great(self):
+                self.wave()
+
+        class Dog(Animal):
+            def wag(self):
+                print('꼬리를 흔든다.')
+            def great(self):
+                self.wag()
+
+        person = Human()
+        person.great()
+
+        dog = Dog()
+        dog.great()
+
+        cow = Cow()
+        cow.great()
+
+    Human과 Dog클래스는 모두 Animal클래스를 상속받고 있는데  Animal 클래스의 great 메소드를 오버라이드 하고있는것을 볼수 있다. Human클래스는 오버라이드 해서 함수의 기능을 wave 함수로 바꾸었고, Dog클래스는 wag함수로 바꾸었다.  그리고 Cow라는 클래스는 그냥 Animal 클래스를 상속받게 해놓았다. 결과를 보면
+    ![override](./img/override1.png)
+
+    오버라이드를 한 클래스와 기존의 부모클래스 함수를 그대로 가져와 쓴 Cow클래스 실행결과를 보게 되면 오버라이드한 클래스는 값이 바뀌어있는 것을 볼수 잇다.
+  ### 27. super()
+    * 정의 : 자식 클래스에서 부모의 클래스의 내용을 사용하고 싶을 경우에 사용한다. 가장 흔히 쓰이는 경우는 init 함수를 사용해서 초기화 할때 빈번하게 사용된다.
+
+          class Car():
+
+              def __init__(self, name):
+                  self.name = name
+
+              def run(self):
+                  print("차가 달립니다.")
+
+
+          class Truck(Car):
+              # 이 아래에서 __init__ 메소드를 오버라이드 하세요.
+              def __init__(self,capacity,name):
+                  super().__init__ (name)
+                  self.capacity = capacity
+                  print('{}톤{}이'.format(capacity,name))
+              def load(self):
+                  print("화물을 싣고")
+              def run(self):
+                  print('과속하고있습니다.')
+
+
+          myCar = Truck(2,'미친트럭')
+          myCar.load()
+          myCar.run()
+
+        Car 라는 부모 클래스가 있고 이를 상속받는 Truck 클래스가 있는데 단순한 오버라이드가 아니라 부모클래스의 init 메소드를 오버라이드 해서 가져다가 그대로 Truck 클래스에서 사용하는데 쓰기 위해서는  super()라는 내장 함수를 사용하면된다. 주의할 점은 클래스가 불러오는 클래스가 다른클래스 이기때문에  self는 당연히 쓰지 말아야 겠지~!
+  ### 28. Exception  Class 만들어서 처리
+    * Exceptinon 같은 경우는 여러 Excpetion이 겹칠수가 있기때문에 하나의 파일에 Exception클래스를 만들어서 편하게 처리 하는 경우가 많다
+
+          < my_exception.py >
+
+          class MyException(Exception):
+            StopIteration
+
+          < UnExpectedRSPValue.py >
+
+            from my_exception import MyException
+            shops = {
+                "송일문방구": {"가위": 500, "크레파스": 3000},
+                "알파문구": {"풀": 800, "도화지": 300, "A4용지": 8000},
+                "다이소": {"풀": 500, "목공본드": 2000, "화분": 3000}
+            }
+
+            try:
+                for shop, products in shops.items():
+                    for product, price in products.items():
+                        if product == '풀':
+                            print("{}: {}원".format(shop, price))
+                            raise MyException
+            except MyException:
+                print("풀을 찾았습니다.")
+
+        이런식으로 외부에 내가 만들어놓은 Exception 클래스를 사용해서 처리 하는 방식도 있다.
