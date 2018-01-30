@@ -849,3 +849,120 @@ Python 기본 문법과 사용방법
                 print("풀을 찾았습니다.")
 
         이런식으로 외부에 내가 만들어놓은 Exception 클래스를 사용해서 처리 하는 방식도 있다.
+  ### 29. DateTime 사용해 보기   
+
+      #dateTime 사용해보기
+
+      import datetime
+
+      print(datetime.datetime.now())
+
+      startDateTime = datetime.datetime.now()
+      print(type(startDateTime))
+      #날짜 바꾸기
+      start_time = startDateTime.replace(year=2016,month=2 ,day=1)
+      print(start_time)
+
+      start_time = datetime.datetime(2018,4,23)
+      print(start_time)
+
+      #남아있는 시간 알아보기
+      nam = start_time - datetime.datetime.now()
+      print('4월 23일 까지는 {} 일{}시간이 남았습니다.'.format(
+          nam.days,nam.seconds
+      ))
+      # 현재시간에서 100일후는 언제인가
+      # 현재시간에서 100일전은 언제인가
+      # 내일 10시 지정해보기
+      # 다른 클래스들끼리 더하고 뺄수 있다.
+      hundred = datetime.timedelta(days = 100)
+      hundredAfter = datetime.datetime.now()+hundred
+      hundredBefore = datetime.datetime.now() - hundred
+      tommrrow = datetime.datetime.now().replace(hour=10 ,minute=0,second= 0)
+      print('지금부터 100일후는 {}입니다.'.format(hundredAfter))
+      print('지금부터 100일전은 {}입니다.'.format(hundredBefore))
+      print('내일 10 시는 {}입니다.'.format(tommrrow))
+
+      # 지금보다 100일전은 언제인가
+      # hundred2 = datetime.timedelta(days = -100)
+      # hundredBefore = datetime.datetime.now() + hundred2
+      # print(hundredBefore)
+
+      after = datetime.timedelta(days =100)
+      hundred1_after = datetime.datetime.now()+ after
+      hundred_after = hundred1_after.replace(hour = 7, minute=0,second=0,microsecond=0)
+
+      print(hundred_after)
+
+    * **datetime.dateTime.now() :현재 시간 알아보기**
+    * **datetime.replace: 날짜변경**
+    * **datetime.timedela():파라미터로 준 값에 따라서 날짜수 지정**
+
+  ### 30. Comprehension
+  * Python의 리스트나 딕셔너리 사용을 더 편하게 사용할 수 있다.
+
+        areas = []
+
+        for  i in range(1,11):
+            if i%2 ==0:
+                areas = areas+[i*i]
+        print(areas)  # [4, 16, 36, 64, 100]
+
+        # 더 간단한 방법
+        # for문을 돌면서 원하는 값을(i * i)반복해서 리스트에 넣어줄수가 있다.
+
+        areas2 = [i*i for i in range(1,11) if i%2 ==0]
+        print(areas2) #[4, 16, 36, 64, 100]
+
+      맨앞의 i*i는 내가 원하고자 하는 값을 쓰면 된다.
+      for 문은 그냥 일반적인  반목문과 if분도 마찬가지이다.
+      더연습해보자
+
+        # 1부터 100사이의 8의 배수를 가지도록 리스트 만들기
+        list1 = [i for i in range(1,99) if i%8==0]
+        print(list1)
+
+        # 중첩듀플도 이렇게 할수 있다.
+
+        print([(x,y) for x in range(15) for y in range(15)])
+
+        list3 = [x for x in range(1,100) if x % 8==0]
+        print(list3) # [8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96]
+
+        #Dictonary을 comprehension 으로, 처리해보기
+
+        students = ['재훈','주한','영서','엄마','아빠']
+
+        #일반적인 방법으로 리스트를 딕셔너리로 만들기
+
+        for number, name in enumerate(students):
+            print(number+1,name)
+
+        #comprehension 을 사용하면
+
+        students2 = {'{}번째'.format(number+1):name for number,name in enumerate(students)}
+        print(students2)
+
+      딕셔너리도 리스트와 마찬가지로 원하는 값(딕셔너리의 경우는 key와value가 있으니 ":" 로 나누어 주는거 말고는 다른게 없다. )
+
+        # 두개의 리스틀 합쳐서 하나의 딕셔너리로 만들어보기
+
+        score = [23,45,67,78,89]
+        for x,y in zip(students,score):
+            print(x,y)
+
+        #위에걸 딕셔너리를 이용해서 하면
+
+        score2 = {student:scores for student,scores in zip(students, score)}
+
+        print(score2)
+
+    여기선 안보이던 게 보이는데 zip이라는 함수가 보인다. zip은 간단하게 말하면 파라미터안에 반복할 인자들을 가지고와서 반복gkrp 된다. 즉 , 여기서는 **students리스트와 score리스트의 값을 가지고와서  반복하면서 그 반복결과값을 student와 scores라는 변수에 담고 그 결과물을 student(키값),scores에 담게 된다.**
+
+        #예제
+
+        product_list = ["풀", "가위", "크래파스"]
+        price_list = [800, 2500, 5000]
+        product_dict = {product:price for product,price in zip(product_list,price_list)}
+
+        print(product_dict)

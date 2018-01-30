@@ -16,15 +16,7 @@ try:
 except MyException:
     print("풀을 찾았습니다.")
 
-#
-# list1=[2,4,6,8,10]
-# total = 0
-# for i in range(len(list1)):
-#     total = total+list1[i]
-#     i = i+1
-#
-# print(total/i)
-
+# 평균 구해보기
 
 def average(list):
     total =0
@@ -36,6 +28,7 @@ def average(list):
 list1 = [2,4,6,8,10]
 print(average(list1))
 
+# 랜덤 함수로 무조건 ture나오게 하기
 from random import randint
 class lucky(object):
     def __eq__(self,other):
